@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PAW '26 — Plank Annual Workgathering</title>
+  <meta name="description" content="Plank Annual Workgathering 2026 — May 28–29 in Montréal. Schedule, activities, locations, and everything you need to know.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- ===== NAV ===== -->
+<nav class="site-nav" aria-label="Main navigation">
+  <div class="container">
+    <a href="#" class="nav-wordmark" aria-label="PAW 2026 — back to top">
+      PAW <span class="italic">'26</span><span class="paw" aria-hidden="true">🐾</span>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links" role="list">
+        <li><a href="#schedule"   class="nav-link">Schedule</a></li>
+        <li><a href="#activities" class="nav-link">Activities</a></li>
+        <li><a href="#locations"  class="nav-link">Locations</a></li>
+        <li><a href="#faq"        class="nav-link">FAQ</a></li>
+      </ul>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">☾</button>
+      <button id="nav-toggle" class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-mobile">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE NAV OVERLAY -->
+<div id="nav-mobile" class="nav-mobile" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <a href="#schedule">Schedule</a>
+  <a href="#activities">Activities</a>
+  <a href="#locations">Locations</a>
+  <a href="#faq">FAQ</a>
+</div>
+
+<main id="main">
+
+  <!-- ===== HERO ===== -->
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Plank Annual Workgathering &nbsp;·&nbsp; Montréal, QC</p>
+      <h1>PAW <span class="italic">'26</span></h1>
+      <hr class="hero-rule" aria-hidden="true">
+      <p class="hero-date">May 28 – 29, 2026</p>
+      <p class="hero-tagline">Two days in Montréal. Make things. Play together. Connect.</p>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12l7 7 7-7"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ===== SCHEDULE ===== -->
+  <section id="schedule" class="schedule-section" aria-labelledby="schedule-heading">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">The Rundown</p>
+        <h2 id="schedule-heading">Schedule</h2>
+      </div>
+
+      <div class="days-grid">
+
+      <!-- Thursday -->
+      <div class="day-col">
+        <div class="day-header">
+          <p class="eyebrow">Day 01</p>
+          <h3>Thursday</h3>
+          <p class="day-date">May 28, 2026</p>
+        </div>
+        <div class="schedule-grid">
+
+          <div class="event-row animate">
+            <div class="event-time">8:00 am</div>
+            <div class="event-body">
+              <div class="event-title">Doors Open</div>
+              <div class="event-detail">Office open — settle in, catch up</div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">9:00 am</div>
+            <div class="event-body">
+              <div class="event-title">Breakfast</div>
+              <div class="event-detail">@ Plank HQ</div>
+              <div class="tags"><span class="tag tag-food">Food</span></div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">10:00 am<br>All day</div>
+            <div class="event-body">
+              <div class="event-title">Swag Station Opens</div>
+              <div class="event-detail">Make your own Plank shirt — iron-on transfers, white tee provided. Best 3 designs win prizes.</div>
+              <div class="tags">
+                <span class="tag tag-ongoing">Ongoing</span>
+                <span class="tag tag-activity">Activity</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">10:15 am</div>
+            <div class="event-body">
+              <div class="event-title">Townhall Roundtable</div>
+              <div class="event-detail">Full team all hands — open discussion on company direction, ideas, and 2026 focus</div>
+              <div class="tags"><span class="tag tag-allhands">All Hands</span></div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">10:15 am<br>→ 1:00 pm</div>
+            <div class="event-body">
+              <div class="event-title">Team Photos</div>
+              <div class="event-detail">New headshots &amp; group shots with Adreanne, running alongside morning sessions</div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">11:00–<br>11:30 am</div>
+            <div class="event-body">
+              <div class="event-title">Legal / AI Chat &amp; Q&amp;A</div>
+              <div class="event-detail">With Allen — AI &amp; legal perspectives for 2026. Post questions to #forum-ai beforehand.</div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">11:30 am<br>→ 1:00 pm</div>
+            <div class="event-body">
+              <div class="event-title">Yoga &amp; Mindfulness</div>
+              <div class="event-detail">15 min mindfulness + 45 min yoga with Jeanne. All levels welcome — genuinely not intense.</div>
+              <div class="tags">
+                <span class="tag tag-optional">Optional</span>
+                <span class="tag tag-activity">Activity</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">12:00–<br>3:00 pm</div>
+            <div class="event-body">
+              <div class="event-title">BYO Lunch XL</div>
+              <div class="event-detail">Free time — go wherever, do whatever. This one's on you.</div>
+              <div class="tags">
+                <span class="tag tag-food">Food</span>
+                <span class="tag tag-social">Social</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">3:00–<br>5:30 pm</div>
+            <div class="event-body">
+              <div class="event-title">Walking Tour</div>
+              <div class="event-detail">Warren's Montréal — tour ends at the restaurant. Wear walking shoes. Rain backup: McCord Museum.</div>
+              <div class="tags">
+                <span class="tag tag-activity">Activity</span>
+                <span class="tag tag-social">Social</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">5:30 pm</div>
+            <div class="event-body">
+              <div class="event-title">Group Dinner</div>
+              <div class="event-detail">India Rosa — Plateau-Mont-Royal. Full vegan menu available.</div>
+              <div class="tags">
+                <span class="tag tag-food">Food</span>
+                <span class="tag tag-social">Social</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Friday -->
+      <div class="day-col">
+        <div class="day-header">
+          <p class="eyebrow">Day 02</p>
+          <h3>Friday</h3>
+          <p class="day-date">May 29, 2026</p>
+        </div>
+        <div class="schedule-grid">
+
+          <div class="event-row animate">
+            <div class="event-time">8:00 am</div>
+            <div class="event-body">
+              <div class="event-title">Doors Open</div>
+              <div class="event-detail">Office open — morning catch-ups</div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">9:00 am</div>
+            <div class="event-body">
+              <div class="event-title">Cannoli &amp; Coffee</div>
+              <div class="event-detail">Morning treats, coffee, and tea</div>
+              <div class="tags"><span class="tag tag-food">Food</span></div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">9:00 am<br>→ 12:30 pm</div>
+            <div class="event-body">
+              <div class="event-title">Swag Station Continues</div>
+              <div class="event-detail">Last chance to work on your design before the midday vote</div>
+              <div class="tags"><span class="tag tag-ongoing">Ongoing</span></div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">10:00 am<br>→ 12:00 pm</div>
+            <div class="event-body">
+              <div class="event-title">Team Time</div>
+              <div class="event-detail">Team meetings, fun activities, and games</div>
+              <div class="tags"><span class="tag tag-activity">Activity</span></div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">10:00 am<br>→ 12:00 pm</div>
+            <div class="event-body">
+              <div class="event-title">Community Volunteer Activity</div>
+              <div class="event-detail">Caroline's initiative — likely bagged lunches for those in need</div>
+              <div class="tags">
+                <span class="tag tag-optional">Optional</span>
+                <span class="tag tag-social">Social</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">12:00 pm</div>
+            <div class="event-body">
+              <div class="event-title">Group Lunch</div>
+              <div class="event-detail">Pizza from Il Focolaio + salads from Mandy's @ Plank HQ. Vegan options included.</div>
+              <div class="tags"><span class="tag tag-food">Food</span></div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">12:30 pm</div>
+            <div class="event-body">
+              <div class="event-title">Swag Vote</div>
+              <div class="event-detail">Team votes on top 3 shirt designs — winners announced. No voting for your own.</div>
+              <div class="tags">
+                <span class="tag tag-activity">Activity</span>
+                <span class="tag tag-allhands">All Hands</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">1:00 pm</div>
+            <div class="event-body">
+              <div class="event-title">Head Out</div>
+              <div class="event-detail">Walk up to the afternoon activity</div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">1:30–<br>4:00 pm</div>
+            <div class="event-body">
+              <div class="event-title">Pottery Workshop</div>
+              <div class="event-detail">Atelier Make, Saint-Laurent Blvd. Handbuilding — you keep what you make. Aprons provided, expect clay.</div>
+              <div class="tags"><span class="tag tag-activity">Activity</span></div>
+            </div>
+          </div>
+
+          <div class="event-row animate">
+            <div class="event-time">4:00 pm+</div>
+            <div class="event-body">
+              <div class="event-title">Wrap-Up Social</div>
+              <div class="event-detail">TBD — somewhere near Atelier Make. Drinks &amp; bites, covered by Plank.</div>
+              <div class="tags">
+                <span class="tag tag-optional">Optional</span>
+                <span class="tag tag-social">Social</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        </div>
+      </div><!-- end day-col friday -->
+
+      </div><!-- end days-grid -->
+
+      <p class="schedule-note">Gaps are intentional — space for spontaneous conversations, wandering, and whatever the moment calls for.</p>
+    </div>
+  </section>
+
+  <!-- ===== ACTIVITIES ===== -->
+  <section id="activities" aria-labelledby="activities-heading">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">What's On</p>
+        <h2 id="activities-heading">Highlights</h2>
+      </div>
+      <div class="activities-grid">
+
+        <article class="activity-card animate">
+          <span class="activity-icon" aria-hidden="true">👕</span>
+          <h3>Swag Station</h3>
+          <p>Design your own Plank shirt using iron-on transfers on a provided white tee. The 3 most creative designs win prizes — voted on by the whole team (you can't vote for your own).</p>
+          <p class="activity-meta">Both days &nbsp;·&nbsp; Starts Thu 10 am</p>
+        </article>
+
+        <article class="activity-card animate animate-d1">
+          <span class="activity-icon" aria-hidden="true">🧘</span>
+          <h3>Yoga &amp; Mindfulness</h3>
+          <p>A 15-minute guided mindfulness session followed by a 45-minute yoga class with Jeanne. All levels genuinely welcome — this is not an intense class. Bring comfortable clothes.</p>
+          <p class="activity-meta">Thu 11:30 am – 1:00 pm &nbsp;·&nbsp; Suite 118</p>
+        </article>
+
+        <article class="activity-card animate animate-d2">
+          <span class="activity-icon" aria-hidden="true">🚶</span>
+          <h3>Walking Tour</h3>
+          <p>Warren's Montréal — a guided walk through the city that ends at India Rosa for group dinner. Weather-dependent; the McCord Museum is the backup plan if it rains.</p>
+          <p class="activity-meta">Thu 3:00 – 5:30 pm &nbsp;·&nbsp; Wear comfy shoes</p>
+        </article>
+
+        <article class="activity-card animate">
+          <span class="activity-icon" aria-hidden="true">🏺</span>
+          <h3>Pottery Workshop</h3>
+          <p>Handbuilding at Atelier Make on Saint-Laurent. You keep what you make — pieces are fired after the event and shipped to anyone not based in Montréal. Aprons provided.</p>
+          <p class="activity-meta">Fri 1:30 – 4:00 pm &nbsp;·&nbsp; Atelier Make</p>
+        </article>
+
+        <article class="activity-card animate animate-d1">
+          <span class="activity-icon" aria-hidden="true">🤝</span>
+          <h3>Community Volunteer</h3>
+          <p>Caroline's community initiative — most likely making bagged lunches for people in need. A chance to give back as a team while we're in town together. Optional but encouraged.</p>
+          <p class="activity-meta">Fri 10:00 am – 12:00 pm &nbsp;·&nbsp; Optional</p>
+        </article>
+
+        <article class="activity-card animate animate-d2">
+          <span class="activity-icon" aria-hidden="true">📸</span>
+          <h3>Team Photos</h3>
+          <p>Fresh headshots and group shots with Adreanne — replacing the old "stock photo" style pics across the site. Maelle is also available for headshots; schedule directly with her.</p>
+          <p class="activity-meta">Thu 10:15 am – 1:00 pm &nbsp;·&nbsp; Plank HQ</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOCATIONS ===== -->
+  <section id="locations" class="locations-section" aria-labelledby="locations-heading">
+    <div class="container">
+      <div class="section-header">
+        <p class="eyebrow">Getting Around</p>
+        <h2 id="locations-heading">Locations</h2>
+      </div>
+
+      <div id="leaflet-map" role="application" aria-label="Map of PAW 2026 event locations in Montréal"></div>
+
+      <div class="locations-grid">
+
+        <div class="location-card animate">
+          <div class="location-header">
+            <div class="location-dot" style="background:#ff9375"></div>
+            <h4>Plank HQ</h4>
+          </div>
+          <p class="location-address">372 Rue Sainte-Catherine O, Suite 101<br>Montréal, QC H3B 1A2</p>
+          <p class="location-activity">Main venue — all group activities</p>
+          <a href="https://maps.google.com/?q=372+Rue+Sainte-Catherine+Ouest+Suite+101+Montreal+QC+H3B+1A2" class="location-link" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+
+        <div class="location-card animate animate-d1">
+          <div class="location-header">
+            <div class="location-dot" style="background:#c8a96e"></div>
+            <h4>India Rosa</h4>
+          </div>
+          <p class="location-address">1241 Mont-Royal Ave E<br>Montréal, QC H2J 1Y2</p>
+          <p class="location-activity">Thursday Group Dinner · 5:30 pm</p>
+          <a href="https://maps.google.com/?q=1241+Avenue+du+Mont-Royal+Est+Montreal+QC" class="location-link" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+
+        <div class="location-card animate animate-d2">
+          <div class="location-header">
+            <div class="location-dot" style="background:#78b48c"></div>
+            <h4>Atelier Make</h4>
+          </div>
+          <p class="location-address">4267 Boul. Saint-Laurent, Suite 300<br>Montréal, QC H2W 1Z4</p>
+          <p class="location-activity">Friday Pottery Workshop · 1:30–4:00 pm</p>
+          <a href="https://maps.google.com/?q=4267+Boulevard+Saint-Laurent+Suite+300+Montreal+QC" class="location-link" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+
+        <div class="location-card animate">
+          <div class="location-header">
+            <div class="location-dot" style="background:#a89ad4"></div>
+            <h4>McCord Museum</h4>
+          </div>
+          <p class="location-address">690 Sherbrooke St W<br>Montréal, QC H3A 1E9</p>
+          <p class="location-activity">Walking tour backup · Thu afternoon</p>
+          <a href="https://maps.google.com/?q=690+Sherbrooke+Street+West+Montreal+QC" class="location-link" target="_blank" rel="noopener">Open in Maps →</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" class="faq-section" aria-labelledby="faq-heading">
+    <div class="container">
+      <div class="section-header" style="text-align:center">
+        <p class="eyebrow">Good to Know</p>
+        <h2 id="faq-heading">FAQ</h2>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item animate">
+          <button class="faq-question" aria-expanded="false">
+            Do I need to bring my laptop?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes — it's a good idea. Bring your charger too.</div></div>
+        </div>
+
+        <div class="faq-item animate">
+          <button class="faq-question" aria-expanded="false">
+            Will we need to work?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">We hope not. PMs have blocked both days. If genuine emergencies come up, we'll handle them together — no one is left alone to deal with it.</div></div>
+        </div>
+
+        <div class="faq-item animate">
+          <button class="faq-question" aria-expanded="false">
+            Where can I park?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Plenty of good options nearby. Check the #paw Slack channel for recommendations. Parking is reimbursed — keep your receipts.</div></div>
+        </div>
+
+        <div class="faq-item animate">
+          <button class="faq-question" aria-expanded="false">
+            Is there anything after dinner on Thursday?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Nothing official — but nothing stopping you either. Informal plans can be made on the fly. Nothing mandatory after dinner.</div></div>
+        </div>
+
+        <div class="faq-item animate">
+          <button class="faq-question" aria-expanded="false">
+            Can I leave stuff at the Plank office?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes — we'll do our best to make sure there's access throughout both days.</div></div>
+        </div>
+
+        <div class="faq-item animate">
+          <button class="faq-question" aria-expanded="false">
+            Can I do yoga if I've never tried it before?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Absolutely. Jeanne tailors the session to any level — it's explicitly not intense. Think gentle movement and mindfulness, not a workout class.</div></div>
+        </div>
+
+        <div class="faq-item animate">
+          <button class="faq-question" aria-expanded="false">
+            No Plankathon this year?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Correct — we're keeping PAW '26 lighter, more fun, and more social. The Swag Station is the creative outlet this year.</div></div>
+        </div>
+
+        <div class="faq-item animate">
+          <button class="faq-question" aria-expanded="false">
+            Do I get to keep my pottery?
+            <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes — handbuilt pieces are yours. They'll be fired and finished after the event. Steve will pick them up and ship to anyone not based in Montréal.</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand">PAW <span class="italic">'26</span> <span aria-hidden="true">🐾</span></p>
+        <p class="footer-tagline">Plank Annual Workgathering &nbsp;·&nbsp; Montréal, QC</p>
+      </div>
+      <div class="footer-details">
+        <p>May 28 – 29, 2026</p>
+        <p>372 Rue Sainte-Catherine O</p>
+        <p>Montréal, QC H3B 1A2</p>
+      </div>
+    </div>
+    <p class="footer-bottom">See you in Montréal ✦ Questions? Hit up Steve or the #paw channel on Slack.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>

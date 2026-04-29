@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PAW '26 Schedule</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0f0e0c;
+    color: #e8e4dc;
+    font-family: 'DM Sans', sans-serif;
+    padding: 48px 28px 72px;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 56px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid rgba(232,228,220,0.1);
+  }
+
+  .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c8a96e;
+    margin-bottom: 14px;
+  }
+
+  .header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(40px, 7vw, 64px);
+    font-weight: 400;
+    color: #f5f0e8;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+  }
+
+  .header h1 em {
+    font-style: italic;
+    color: #c8a96e;
+  }
+
+  .header .subtitle {
+    margin-top: 12px;
+    font-size: 13px;
+    color: rgba(232,228,220,0.38);
+    font-weight: 300;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+  }
+
+  .days-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 660px) {
+    .days-grid { grid-template-columns: 1fr; }
+  }
+
+  .day-block {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(232,228,220,0.07);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .day-header {
+    background: rgba(200,169,110,0.1);
+    border-bottom: 1px solid rgba(200,169,110,0.18);
+    padding: 20px 24px;
+  }
+
+  .day-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(200,169,110,0.65);
+    margin-bottom: 5px;
+  }
+
+  .day-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: #f5f0e8;
+  }
+
+  .day-date {
+    font-size: 11.5px;
+    color: rgba(232,228,220,0.38);
+    margin-top: 3px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+  }
+
+  .events {
+    padding: 6px 0;
+  }
+
+  .event {
+    display: grid;
+    grid-template-columns: 86px 1fr;
+    border-bottom: 1px solid rgba(232,228,220,0.045);
+  }
+
+  .event:last-child { border-bottom: none; }
+
+  .event:hover {
+    background: rgba(255,255,255,0.022);
+  }
+
+  .event-time {
+    padding: 13px 10px 13px 20px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    color: rgba(200,169,110,0.6);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+    padding-top: 15px;
+  }
+
+  .event-body {
+    padding: 13px 20px 13px 14px;
+    border-left: 1px solid rgba(232,228,220,0.05);
+  }
+
+  .event-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #ede9e0;
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+
+  .event-detail {
+    font-size: 11.5px;
+    color: rgba(232,228,220,0.4);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .tags {
+    margin-top: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 2px;
+    font-weight: 500;
+  }
+
+  .tag-social   { background: rgba(120,180,140,0.13); color: #78b48c; }
+  .tag-optional { background: rgba(150,130,200,0.13); color: #a89ad4; }
+  .tag-food     { background: rgba(210,120,80,0.16);  color: #e0936a; }
+  .tag-activity { background: rgba(200,169,110,0.14); color: #c8a96e; }
+  .tag-allhands { background: rgba(90,160,210,0.14);  color: #7ab8d8; }
+  .tag-ongoing  {
+    background: transparent;
+    color: rgba(200,169,110,0.5);
+    border: 1px dashed rgba(200,169,110,0.28);
+  }
+
+  .footnote {
+    text-align: center;
+    margin-top: 44px;
+    font-size: 12px;
+    color: rgba(232,228,220,0.2);
+    font-style: italic;
+    font-family: 'DM Serif Display', serif;
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="eyebrow">Plank Annual Workgathering &nbsp;·&nbsp; Montreal</div>
+    <h1>PAW <em>'26</em></h1>
+    <div class="subtitle">May 28 – 29 &nbsp;·&nbsp; Plank HQ &amp; Beyond</div>
+  </div>
+
+  <div class="days-grid">
+
+    <!-- THURSDAY -->
+    <div class="day-block">
+      <div class="day-header">
+        <div class="day-label">Day 01</div>
+        <div class="day-name">Thursday</div>
+        <div class="day-date">May 28, 2026</div>
+      </div>
+      <div class="events">
+
+        <div class="event">
+          <div class="event-time">8:00 am</div>
+          <div class="event-body">
+            <div class="event-title">Doors Open</div>
+            <div class="event-detail">Office open — settle in, catch up</div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">9:00 am</div>
+          <div class="event-body">
+            <div class="event-title">Breakfast</div>
+            <div class="event-detail">@ Plank HQ</div>
+            <div class="tags"><span class="tag tag-food">Food</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">10:00 am<br>All day</div>
+          <div class="event-body">
+            <div class="event-title">Swag Station Opens</div>
+            <div class="event-detail">Make your own Plank shirt — best 3 designs win a prize</div>
+            <div class="tags"><span class="tag tag-ongoing">Ongoing</span><span class="tag tag-activity">Activity</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">10:15 am</div>
+          <div class="event-body">
+            <div class="event-title">Townhall</div>
+            <div class="event-detail">Full team — all hands on deck</div>
+            <div class="tags"><span class="tag tag-allhands">All Hands</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">10:15 am<br>→ 1:00 pm</div>
+          <div class="event-body">
+            <div class="event-title">Team Photos</div>
+            <div class="event-detail">New headshots and group shots with Adreanne, running alongside morning sessions</div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">11:00 –<br>11:30 am</div>
+          <div class="event-body">
+            <div class="event-title">Legal / AI Chat &amp; Q&amp;A</div>
+            <div class="event-detail">With Allen</div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">11:30 am<br>→ 1:00 pm</div>
+          <div class="event-body">
+            <div class="event-title">Yoga &amp; Mindfulness</div>
+            <div class="event-detail">15 min mindfulness + 45 min yoga</div>
+            <div class="tags"><span class="tag tag-optional">Optional</span><span class="tag tag-activity">Activity</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">12:00 –<br>3:00 pm</div>
+          <div class="event-body">
+            <div class="event-title">BYO Lunch XL</div>
+            <div class="event-detail">Free time — go wherever, do whatever</div>
+            <div class="tags"><span class="tag tag-food">Food</span><span class="tag tag-social">Social</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">3:00 –<br>5:30 pm</div>
+          <div class="event-body">
+            <div class="event-title">Walking Tour</div>
+            <div class="event-detail">Warren's Montreal — tour ends at the restaurant</div>
+            <div class="tags"><span class="tag tag-activity">Activity</span><span class="tag tag-social">Social</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">5:30 pm</div>
+          <div class="event-body">
+            <div class="event-title">Group Dinner</div>
+            <div class="event-detail">India Rosa — Plateau-Mont-Royal</div>
+            <div class="tags"><span class="tag tag-food">Food</span><span class="tag tag-social">Social</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FRIDAY -->
+    <div class="day-block">
+      <div class="day-header">
+        <div class="day-label">Day 02</div>
+        <div class="day-name">Friday</div>
+        <div class="day-date">May 29, 2026</div>
+      </div>
+      <div class="events">
+
+        <div class="event">
+          <div class="event-time">8:00 am</div>
+          <div class="event-body">
+            <div class="event-title">Doors Open</div>
+            <div class="event-detail">Office open — morning catch-ups</div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">9:00 am</div>
+          <div class="event-body">
+            <div class="event-title">Cannoli &amp; Coffee</div>
+            <div class="event-detail">Morning treats, coffee, and tea</div>
+            <div class="tags"><span class="tag tag-food">Food</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">9:00 am<br>→ 12:30 pm</div>
+          <div class="event-body">
+            <div class="event-title">Swag Station Continues</div>
+            <div class="event-detail">Keep working on your design before the midday vote</div>
+            <div class="tags"><span class="tag tag-ongoing">Ongoing</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">10:00 am<br>→ 12:00 pm</div>
+          <div class="event-body">
+            <div class="event-title">Team Time</div>
+            <div class="event-detail">Team meetings, fun activities, and games</div>
+            <div class="tags"><span class="tag tag-activity">Activity</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">10:00 am<br>→ 12:00 pm</div>
+          <div class="event-body">
+            <div class="event-title">Community Volunteer Activity</div>
+            <div class="event-detail">Caroline's community initiative</div>
+            <div class="tags"><span class="tag tag-optional">Optional</span><span class="tag tag-social">Social</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">12:00 pm</div>
+          <div class="event-body">
+            <div class="event-title">Group Lunch</div>
+            <div class="event-detail">Pizza from Il Focolaio + salads from Mandy's, @ Plank HQ</div>
+            <div class="tags"><span class="tag tag-food">Food</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">12:30 pm</div>
+          <div class="event-body">
+            <div class="event-title">Swag Vote</div>
+            <div class="event-detail">Team votes on top 3 shirt designs — winners announced</div>
+            <div class="tags"><span class="tag tag-activity">Activity</span><span class="tag tag-allhands">All Hands</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">1:00 pm</div>
+          <div class="event-body">
+            <div class="event-title">Head Out</div>
+            <div class="event-detail">Walk up to the afternoon activity</div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">1:30 –<br>4:00 pm</div>
+          <div class="event-body">
+            <div class="event-title">Pottery Workshop</div>
+            <div class="event-detail">Atelier Make — St-Laurent Blvd</div>
+            <div class="tags"><span class="tag tag-activity">Activity</span></div>
+          </div>
+        </div>
+
+        <div class="event">
+          <div class="event-time">4:00 pm+</div>
+          <div class="event-body">
+            <div class="event-title">Wrap-Up Social</div>
+            <div class="event-detail">TBD — somewhere close to Atelier Make</div>
+            <div class="tags"><span class="tag tag-optional">Optional</span><span class="tag tag-social">Social</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footnote">
+    Gaps are intentional — space for spontaneous conversations, wandering, and whatever the moment calls for.
+  </div>
+
+</div>
+</body>
+</html>
