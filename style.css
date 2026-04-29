@@ -202,15 +202,7 @@ html.dark .site-nav.scrolled {
   .hero { padding: calc(var(--nav-h) + var(--sp-16)) var(--sp-10) var(--sp-16); }
 }
 
-.hero::before {
-  content: ''; position: absolute;
-  bottom: -20%; right: -8%;
-  width: 65vw; height: 65vw;
-  max-width: 680px; max-height: 680px;
-  border-radius: 50%;
-  background: var(--c-accent); opacity: 0.5;
-  pointer-events: none;
-}
+/* semicircle removed — replaced by paw trail */
 
 .hero-inner {
   max-width: var(--max-w); margin: 0 auto;
@@ -362,7 +354,6 @@ html.dark .site-nav.scrolled {
 .activity-icon { font-size: 1.75rem; margin-bottom: var(--sp-4); display: block; }
 .activity-card h3 { font-size: 1.35rem; margin-bottom: var(--sp-2); }
 .activity-card p { font-size: 1rem; color: var(--c-text-muted); line-height: 1.65; margin-bottom: var(--sp-4); }
-.activity-meta { font-family: var(--f-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--c-coral); }
 
 /* === MAP / LOCATIONS === */
 .locations-section { background: var(--c-beige); transition: background var(--t); }
@@ -470,6 +461,13 @@ html.dark .leaflet-popup-tip { background: #1c1c1a; }
 }
 @media (max-width: 767px) { .footer-details { text-align: left; } }
 
+.footer-bottom a {
+  color: var(--c-coral);
+  text-decoration: none;
+  transition: opacity var(--t);
+}
+.footer-bottom a:hover { opacity: 0.75; }
+
 .footer-bottom {
   margin-top: var(--sp-12); padding-top: var(--sp-6);
   border-top: 1px solid rgba(252,251,250,0.1);
@@ -510,3 +508,105 @@ html.dark .leaflet-popup-tip { background: #1c1c1a; }
   outline-offset: 3px;
   border-radius: var(--r-sm);
 }
+
+/* =====================================================
+   PAW CLICK EFFECT
+   ===================================================== */
+.hero { cursor: crosshair; }
+
+.paw-click {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;   /* behind .hero-inner (z-index: 1) */
+  transform-origin: center center;
+  animation: paw-click-fade 2.4s ease-out forwards;
+}
+
+.paw-click svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes paw-click-fade {
+  0%   { opacity: 0;   transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(0.3); }
+  14%  { opacity: 0.7; transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1);   }
+  100% { opacity: 0.1; transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1);   }
+}
+
+/* =====================================================
+   LIGHT / DARK MODE OVERRIDES
+   ===================================================== */
+
+/* --- Nav: in light mode the hero is cream, so nav text must be dark --- */
+html:not(.dark) .site-nav:not(.scrolled) .nav-wordmark,
+html:not(.dark) .site-nav:not(.scrolled) .nav-link,
+html:not(.dark) .site-nav:not(.scrolled) .theme-toggle,
+html:not(.dark) .site-nav:not(.scrolled) .nav-hamburger {
+  color: var(--c-primary);
+}
+
+/* --- Hero light mode --- */
+html:not(.dark) .hero {
+  background: var(--c-beige);
+}
+html:not(.dark) .hero h1              { color: var(--c-primary); }
+html:not(.dark) .hero .eyebrow        { color: var(--c-accent); }
+html:not(.dark) .hero-date            { color: rgba(17,38,33,0.55); }
+html:not(.dark) .hero-tagline         { color: rgba(17,38,33,0.68); }
+html:not(.dark) .hero-scroll          { color: rgba(17,38,33,0.3); }
+html:not(.dark) .hero-rule            { background: var(--c-coral); }
+
+/* --- Schedule section light mode --- */
+html:not(.dark) .schedule-section {
+  background: #e8e2d9;
+}
+html:not(.dark) .schedule-section .section-header h2 { color: var(--c-primary); }
+html:not(.dark) .schedule-section .eyebrow           { color: var(--c-accent); }
+html:not(.dark) .day-header h3                       { color: var(--c-primary); }
+html:not(.dark) .day-date                            { color: rgba(17,38,33,0.5); }
+html:not(.dark) .day-header                          { border-bottom-color: rgba(17,38,33,0.14); }
+html:not(.dark) .schedule-grid                       { border-color: rgba(17,38,33,0.1); }
+html:not(.dark) .event-row                           { background: rgba(255,255,255,0.35); }
+html:not(.dark) .event-row:hover                     { background: rgba(255,255,255,0.6); }
+html:not(.dark) .event-row                           { border-bottom-color: rgba(17,38,33,0.07); }
+html:not(.dark) .event-time  { color: var(--c-accent);  border-right-color: rgba(17,38,33,0.09); }
+html:not(.dark) .event-title { color: var(--c-primary); }
+html:not(.dark) .event-detail{ color: rgba(17,38,33,0.62); }
+html:not(.dark) .schedule-note { color: rgba(17,38,33,0.28); }
+
+/* Tag text: darken for legibility on light schedule background */
+html:not(.dark) .tag-food     { color: #9b3e10; background: rgba(180,80,30,0.1); }
+html:not(.dark) .tag-social   { color: #1e6636; background: rgba(30,100,50,0.1); }
+html:not(.dark) .tag-optional { color: #4a3480; background: rgba(80,55,160,0.1); }
+html:not(.dark) .tag-activity { color: #7a5510; background: rgba(140,100,20,0.1); }
+html:not(.dark) .tag-allhands { color: #1050a0; background: rgba(20,80,170,0.1); }
+html:not(.dark) .tag-ongoing  { color: rgba(100,70,10,0.7); border-color: rgba(100,70,10,0.3); }
+
+/* --- Eyebrow: gold is too light on cream/white sections, use accent instead --- */
+html:not(.dark) #activities .eyebrow,
+html:not(.dark) .locations-section .eyebrow,
+html:not(.dark) .faq-section .eyebrow {
+  color: var(--c-accent);
+}
+
+/* --- Dark mode: lower sections get a deep green tint, not pure black --- */
+html.dark #activities        { background: #0c1a12; }
+html.dark .locations-section { background: #091410; }
+html.dark .faq-section       { background: #0c1a12; }
+html.dark .site-footer       { background: #060f0a; }
+
+html.dark .activity-card  { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+html.dark .location-card  { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.06); }
+
+/* --- Accessibility: boost muted text contrast throughout --- */
+/* Light mode muted text: was 52% opacity → 65% */
+html:not(.dark) {
+  --c-text-muted: rgba(17,38,33,0.65);
+}
+/* Event detail on dark schedule was 42% → 52% */
+html.dark .event-detail { color: rgba(232,228,220,0.56); }
+/* Hero date was 45% → 65% */
+html.dark .hero-date    { color: rgba(252,251,250,0.65); }
+/* Hero tagline was 65% → 75% */
+html.dark .hero-tagline { color: rgba(252,251,250,0.75); }

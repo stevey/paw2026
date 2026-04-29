@@ -48,6 +48,67 @@ function checkScroll() { siteNav.classList.toggle('scrolled', window.scrollY > 4
 window.addEventListener('scroll', checkScroll, { passive: true });
 checkScroll();
 
+// ---- Hero paw click ----
+(function () {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  const PAW_COLORS = [
+    '#ff9375', // coral
+    '#e8623a', // deep coral
+    '#c8a96e', // gold
+    '#e6c84a', // bright gold
+    '#78b48c', // sage green
+    '#1f453b', // deep accent green
+    '#112621', // primary green
+    '#7ab8d8', // sky blue
+    '#a89ad4', // lavender
+    '#f0ede8', // warm cream (visible on dark hero)
+    '#e07850', // warm amber
+    '#5a9e70', // mid green
+  ];
+
+  const pawSVG = (color) =>
+    `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" fill="${color}">
+      <ellipse cx="100" cy="138" rx="55" ry="44"/>
+      <ellipse cx="42"  cy="76"  rx="22" ry="28" transform="rotate(-18,42,76)"/>
+      <ellipse cx="76"  cy="54"  rx="22" ry="28"/>
+      <ellipse cx="124" cy="54"  rx="22" ry="28"/>
+      <ellipse cx="158" cy="76"  rx="22" ry="28" transform="rotate(18,158,76)"/>
+    </svg>`;
+
+  const queue = [];
+  const MAX_PAWS = 50;
+
+  hero.addEventListener('click', (e) => {
+    const rect = hero.getBoundingClientRect();
+    const maxSize = Math.max(window.innerWidth, window.innerHeight);
+    const size  = Math.round(100 + Math.random() * (maxSize - 100));
+    const rot   = (Math.random() - 0.5) * 160;            // –80° to +80°
+    const color = PAW_COLORS[Math.floor(Math.random() * PAW_COLORS.length)];
+
+    const paw = document.createElement('div');
+    paw.className = 'paw-click';
+    paw.innerHTML = pawSVG(color);
+    paw.style.width  = size + 'px';
+    paw.style.height = size + 'px';
+    paw.style.left   = (e.clientX - rect.left)  + 'px';
+    paw.style.top    = (e.clientY - rect.top)    + 'px';
+    paw.style.setProperty('--rot', rot.toFixed(1) + 'deg');
+
+    hero.appendChild(paw);
+    queue.push(paw);
+
+    // Evict oldest when over cap — fade it out first
+    if (queue.length > MAX_PAWS) {
+      const oldest = queue.shift();
+      oldest.style.transition = 'opacity 0.6s ease';
+      oldest.style.opacity = '0';
+      setTimeout(() => oldest.remove(), 650);
+    }
+  });
+}());
+
 // ---- FAQ accordion ----
 document.querySelectorAll('.faq-question').forEach(btn => {
   btn.addEventListener('click', () => {
