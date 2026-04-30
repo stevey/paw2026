@@ -6,7 +6,7 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 
 ## Features
 
-- **Hero with paw-click interaction** — click anywhere on the hero to spawn a randomly sized, rotated, and coloured SVG paw print that fades to 10% opacity; up to 50 paws persist at once
+- **Hero with logo-click interaction** — click anywhere on the hero to spawn a randomly sized, rotated, and coloured Plank monogram SVG that fades to 10% opacity with a soft CSS blur dissolve; up to 50 persist at once, colour palette sourced from official Plank brand guidelines
 - **Two-column schedule** — Thursday and Friday side-by-side with time labels, event descriptions, and colour-coded tag pills (Food, Social, Optional, Activity, All Hands, Ongoing)
 - **Activity highlights grid** — six feature cards covering Swag, Yoga, Walking Tour, Pottery, Volunteering, and Team Photos
 - **Interactive Leaflet map** — four location markers with popups; tiles swap between light and dark CartoDB styles to match the active theme
@@ -17,6 +17,7 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 - **Responsive layout** — single-column mobile (< 640 px), two-column schedule collapses at 900 px, full-screen mobile nav overlay
 - **Sticky nav** — backdrop blur + border on scroll; hamburger menu on mobile
 - **Footer Slack links** — direct deep-links to Steve's profile and `#paw-event-2026` channel
+- **Vibe bar** — sticky top banner crediting the project; styled in Plank Forest Green with Sage Green text
 
 ---
 
@@ -40,7 +41,7 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 
 - **Content** — `sources/PAW 2026 Outline.md` (schedule, FAQ, venue details, activity descriptions)
 - **Schedule reference HTML** — `sources/paw_2026_schedule.html` (design inspiration for event card layout and tag colours)
-- **Design tokens** — Plank design system (colour palette, type scale)
+- **Design tokens** — Plank Brand Identity Guidelines 2022 (colour palette, type scale)
 - **Scroll animation technique** — [Josh Comeau, "CSS Scroll-Driven Animations"](https://www.joshwcomeau.com/css/scroll-driven-animations/)
 - **Map tiles** — © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors © [CARTO](https://carto.com/attributions)
 - **Leaflet.js** — © Vladimir Agafonkin, BSD 2-Clause licence
