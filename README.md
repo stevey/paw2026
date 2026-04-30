@@ -60,22 +60,25 @@ This is a vibe coded site — built by Steve Bissonnette with Claude Code doing 
 
 ### Passes
 
-- **Skip link** — `#main-content` skip-to-content link is the first focusable element in the page
+- **Skip link** — fixed-position skip-to-content link is the first focusable element; reveals on focus
 - **Semantic HTML** — page structured with landmark elements (`<nav>`, `<main>`, `<section>`, `<footer>`); headings follow a logical `h1 → h2 → h3` hierarchy
-- **ARIA labels** — interactive controls carry `aria-label` or visible labels; map has `aria-label="Map of PAW 2026 event locations in Montréal"`
+- **ARIA labels** — all interactive controls carry descriptive `aria-label`; theme toggle updates its label dynamically ("Switch to light/dark mode"); nav toggle label updates on open/close; PDF buttons announce generation state via an `aria-live` region
 - **`aria-expanded`** — FAQ accordion buttons and mobile nav toggle update `aria-expanded` on open/close
 - **`aria-pressed`** — dark/light mode toggle exposes pressed state to assistive technology
-- **`aria-hidden`** — decorative elements (theme toggle icon, nav hamburger bars, hero background paws) are hidden from the accessibility tree
+- **`aria-hidden`** — decorative elements hidden from the accessibility tree; hero canvas clear button uses the `hidden` attribute (not just CSS `display:none`) so it is fully absent from the tab order when inactive
 - **Focus styles** — `:focus-visible` ring applied to all interactive elements; not suppressed globally
-- **Keyboard navigation** — all interactive elements (nav links, FAQ buttons, map markers, location card links, footer links) are reachable and operable by keyboard
-- **Colour contrast** — primary text on background combinations use Plank's `#112621` on `#fcfbfa` (≈ 14:1) and `#f0ede8` on `#1f453b` (≈ 9:1), both well above the WCAG AA 4.5:1 threshold
+- **Keyboard navigation** — mobile nav closes on Escape and returns focus to the hamburger button; close button added inside the nav overlay; all buttons carry `type="button"`
+- **Reduced motion** — `@media (prefers-reduced-motion: reduce)` guard added for hero entrance, bounce, and paw-click animations
+- **External links** — all `target="_blank"` links (Google Maps, Slack) carry descriptive `aria-label` noting they open in a new tab
+- **`aria-controls`** — FAQ accordion buttons reference their answer panel IDs
+- **`.sr-only` utility** — visually-hidden class available for screen-reader-only content; used by the `aria-live` PDF status announcer
+- **Colour contrast** — primary text combinations use Plank's `#112621` on `#fcfbfa` (≈ 14:1) and `#f0ede8` on `#1f453b` (≈ 9:1), both well above WCAG AA
 
 ### Known gaps
 
-- **`prefers-reduced-motion`** — scroll-driven fade-up animations and the hero paw-click animation do not currently check `prefers-reduced-motion: reduce`; users who opt out of motion will still see them
-- **Hero click — no keyboard equivalent** — clicking the hero to spawn paw prints is a mouse/touch-only interaction; no keyboard or assistive-technology alternative is provided
-- **Mobile nav focus trap** — when the full-screen mobile nav overlay is open, focus can escape to background content; a proper focus trap loop is not implemented
-- **Map keyboard interaction** — Leaflet's default keyboard support lets users tab to the map container and pan with arrow keys, but individual marker popups are not keyboard-triggerable without a plugin
+- **Hero click — no keyboard equivalent** — spawning logos on the canvas is mouse/touch-only; no keyboard or AT alternative
+- **Mobile nav focus trap** — focus can still escape the nav overlay to background content; a full focus trap loop is not implemented
+- **Map marker keyboard access** — Leaflet marker popups are not keyboard-triggerable without a plugin
 
 ---
 

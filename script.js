@@ -14,6 +14,7 @@ const themeToggle = document.getElementById('theme-toggle');
 function syncToggle() {
   const dark = html.classList.contains('dark');
   themeToggle.setAttribute('aria-pressed', String(dark));
+  themeToggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
   themeToggle.textContent = dark ? '☀' : '☾';
 }
 
@@ -28,19 +29,34 @@ themeToggle.addEventListener('click', () => {
 const navToggle = document.getElementById('nav-toggle');
 const navMobile = document.getElementById('nav-mobile');
 
+function closeNav() {
+  navMobile.classList.remove('open');
+  navToggle.setAttribute('aria-expanded', 'false');
+  navToggle.setAttribute('aria-label', 'Open navigation menu');
+  document.body.style.overflow = '';
+}
+
 navToggle.addEventListener('click', () => {
   const open = navMobile.classList.toggle('open');
   navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
   document.body.style.overflow = open ? 'hidden' : '';
 });
 
 navMobile.querySelectorAll('a').forEach(a =>
-  a.addEventListener('click', () => {
-    navMobile.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-  })
+  a.addEventListener('click', closeNav)
 );
+
+const navMobileClose = document.getElementById('nav-mobile-close');
+if (navMobileClose) navMobileClose.addEventListener('click', closeNav);
+
+// Close mobile nav on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navMobile.classList.contains('open')) {
+    closeNav();
+    navToggle.focus();
+  }
+});
 
 // ---- Nav scroll state ----
 const siteNav = document.querySelector('.site-nav');
@@ -59,6 +75,7 @@ checkScroll();
   if (dlBtn) {
     dlBtn.disabled = true;
     dlBtn.textContent = '↑ click the canvas above to paint';
+    dlBtn.setAttribute('aria-label', 'Paint the canvas to create artwork');
   }
 
   const PAW_COLORS = [
@@ -110,8 +127,12 @@ checkScroll();
     if (dlBtn && dlBtn.disabled) {
       dlBtn.disabled = false;
       dlBtn.textContent = '↓ save artwork';
+      dlBtn.setAttribute('aria-label', 'Download hero artwork as PNG');
     }
-    if (clearBtn) clearBtn.classList.add('visible');
+    if (clearBtn) {
+      clearBtn.hidden = false;
+      clearBtn.removeAttribute('aria-hidden');
+    }
 
     // Evict oldest when over cap — fade it out first
     if (queue.length > MAX_PAWS) {
@@ -128,8 +149,15 @@ document.querySelector('.hero-clear')?.addEventListener('click', () => {
   document.querySelectorAll('.hero .paw-click').forEach(el => el.remove());
   const dl  = document.querySelector('.hero-download');
   const clr = document.querySelector('.hero-clear');
-  if (dl)  { dl.disabled = true;  dl.textContent = '↑ click the canvas above to paint'; }
-  if (clr) { clr.classList.remove('visible'); }
+  if (dl)  {
+    dl.disabled = true;
+    dl.textContent = '↑ click the canvas above to paint';
+    dl.setAttribute('aria-label', 'Paint the canvas to create artwork');
+  }
+  if (clr) {
+    clr.hidden = true;
+    clr.setAttribute('aria-hidden', 'true');
+  }
 });
 
 // ---- FAQ accordion ----
@@ -213,14 +241,23 @@ if (typeof L !== 'undefined') {
 }
 
 // ---- Schedule PDF download ----
+const statusAnnouncer = document.getElementById('status-announcer');
+function announce(msg) {
+  if (statusAnnouncer) { statusAnnouncer.textContent = ''; setTimeout(() => { statusAnnouncer.textContent = msg; }, 50); }
+}
+
 async function downloadDayPDF(dayColId, filename) {
   const el = document.getElementById(dayColId);
   if (!el) return;
 
   const btn = el.querySelector('.day-pdf-btn');
   const origText = btn.textContent;
+  const origLabel = btn.getAttribute('aria-label');
+  const dayName = dayColId === 'day-thu' ? 'Thursday' : 'Friday';
   btn.textContent = 'Generating…';
+  btn.setAttribute('aria-label', `Generating ${dayName} schedule PDF, please wait`);
   btn.disabled = true;
+  announce(`Generating ${dayName} schedule PDF…`);
 
   try {
     const canvas = await html2canvas(el, {
@@ -262,7 +299,9 @@ async function downloadDayPDF(dayColId, filename) {
     pdf.save(filename);
   } finally {
     btn.textContent = origText;
+    btn.setAttribute('aria-label', origLabel);
     btn.disabled = false;
+    announce(`${dayName} schedule PDF ready.`);
   }
 }
 

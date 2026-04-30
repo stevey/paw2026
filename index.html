@@ -16,6 +16,7 @@
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
+<div aria-live="polite" aria-atomic="true" class="sr-only" id="status-announcer"></div>
 
 <!-- ===== VIBE BAR ===== -->
 <div class="vibe-bar" aria-hidden="true">A Plank vibe coded (mostly) project &mdash; Claude Code &amp; Steve</div>
@@ -33,8 +34,8 @@
         <li><a href="#locations"  class="nav-link">Locations</a></li>
         <li><a href="#faq"        class="nav-link">FAQ</a></li>
       </ul>
-      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" aria-pressed="false">☾</button>
-      <button id="nav-toggle" class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-mobile">
+      <button id="theme-toggle" type="button" class="theme-toggle" aria-label="Switch to dark mode" aria-pressed="false">☾</button>
+      <button id="nav-toggle" type="button" class="nav-hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-mobile">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -43,6 +44,7 @@
 
 <!-- MOBILE NAV OVERLAY -->
 <div id="nav-mobile" class="nav-mobile" role="dialog" aria-modal="true" aria-label="Navigation menu">
+  <button type="button" class="nav-mobile-close" id="nav-mobile-close" aria-label="Close navigation menu">✕</button>
   <a href="#schedule">Schedule</a>
   <a href="#activities">Activities</a>
   <a href="#locations">Locations</a>
@@ -67,8 +69,8 @@
     </div>
   </header>
   <div class="hero-download-wrap">
-    <button class="hero-clear" aria-label="Clear hero artwork">✕ clear</button>
-    <button class="hero-download" aria-label="Download hero artwork as PNG">↓ save artwork</button>
+    <button type="button" class="hero-clear" aria-label="Clear hero artwork" aria-hidden="true" hidden>✕ clear</button>
+    <button type="button" class="hero-download" aria-label="Paint the canvas to create artwork" disabled>↓ save artwork</button>
   </div>
 
   <!-- ===== SCHEDULE ===== -->
@@ -89,7 +91,7 @@
             <h3>Thursday</h3>
             <p class="day-date">May 28, 2026</p>
           </div>
-          <button class="day-pdf-btn" data-day="thu" aria-label="Download Thursday schedule as PDF">↓ Download PDF</button>
+          <button type="button" class="day-pdf-btn" data-day="thu" aria-label="Download Thursday schedule as PDF">↓ Download PDF</button>
         </div>
         <div class="schedule-grid">
 
@@ -206,7 +208,7 @@
             <h3>Friday</h3>
             <p class="day-date">May 29, 2026</p>
           </div>
-          <button class="day-pdf-btn" data-day="fri" aria-label="Download Friday schedule as PDF">↓ Download PDF</button>
+          <button type="button" class="day-pdf-btn" data-day="fri" aria-label="Download Friday schedule as PDF">↓ Download PDF</button>
         </div>
         <div class="schedule-grid">
 
@@ -380,42 +382,42 @@
 
         <div class="location-card">
           <div class="location-header">
-            <div class="location-dot" style="background:#ff9375"></div>
+            <div class="location-dot" style="background:#ff9375" aria-hidden="true"></div>
             <h4>Plank HQ</h4>
           </div>
           <p class="location-address">372 Rue Sainte-Catherine O, Suite 101<br>Montréal, QC H3B 1A2</p>
           <p class="location-activity">Main venue — all group activities</p>
-          <a href="https://maps.google.com/?q=372+Rue+Sainte-Catherine+Ouest+Suite+101+Montreal+QC+H3B+1A2" class="location-link" target="_blank" rel="noopener">Open in Maps →</a>
+          <a href="https://maps.google.com/?q=372+Rue+Sainte-Catherine+Ouest+Suite+101+Montreal+QC+H3B+1A2" class="location-link" target="_blank" rel="noopener" aria-label="Open Plank HQ in Google Maps (opens in new tab)">Open in Maps →</a>
         </div>
 
         <div class="location-card">
           <div class="location-header">
-            <div class="location-dot" style="background:#c8a96e"></div>
+            <div class="location-dot" style="background:#c8a96e" aria-hidden="true"></div>
             <h4>India Rosa</h4>
           </div>
           <p class="location-address">1241 Mont-Royal Ave E<br>Montréal, QC H2J 1Y2</p>
           <p class="location-activity">Thursday Group Dinner · 5:30 pm</p>
-          <a href="https://maps.google.com/?q=1241+Avenue+du+Mont-Royal+Est+Montreal+QC" class="location-link" target="_blank" rel="noopener">Open in Maps →</a>
+          <a href="https://maps.google.com/?q=1241+Avenue+du+Mont-Royal+Est+Montreal+QC" class="location-link" target="_blank" rel="noopener" aria-label="Open India Rosa in Google Maps (opens in new tab)">Open in Maps →</a>
         </div>
 
         <div class="location-card">
           <div class="location-header">
-            <div class="location-dot" style="background:#78b48c"></div>
+            <div class="location-dot" style="background:#78b48c" aria-hidden="true"></div>
             <h4>Atelier Make</h4>
           </div>
           <p class="location-address">4267 Boul. Saint-Laurent, Suite 300<br>Montréal, QC H2W 1Z4</p>
           <p class="location-activity">Friday Pottery Workshop · 1:30–4:00 pm</p>
-          <a href="https://maps.google.com/?q=4267+Boulevard+Saint-Laurent+Suite+300+Montreal+QC" class="location-link" target="_blank" rel="noopener">Open in Maps →</a>
+          <a href="https://maps.google.com/?q=4267+Boulevard+Saint-Laurent+Suite+300+Montreal+QC" class="location-link" target="_blank" rel="noopener" aria-label="Open Atelier Make in Google Maps (opens in new tab)">Open in Maps →</a>
         </div>
 
         <div class="location-card">
           <div class="location-header">
-            <div class="location-dot" style="background:#a89ad4"></div>
+            <div class="location-dot" style="background:#a89ad4" aria-hidden="true"></div>
             <h4>McCord Museum</h4>
           </div>
           <p class="location-address">690 Sherbrooke St W<br>Montréal, QC H3A 1E9</p>
           <p class="location-activity">Walking tour backup · Thu afternoon</p>
-          <a href="https://maps.google.com/?q=690+Sherbrooke+Street+West+Montreal+QC" class="location-link" target="_blank" rel="noopener">Open in Maps →</a>
+          <a href="https://maps.google.com/?q=690+Sherbrooke+Street+West+Montreal+QC" class="location-link" target="_blank" rel="noopener" aria-label="Open McCord Museum in Google Maps (opens in new tab)">Open in Maps →</a>
         </div>
 
       </div>
@@ -433,83 +435,83 @@
       <div class="faq-list">
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
+          <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
             Do I need to bring my laptop?
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <div class="faq-answer"><div class="faq-answer-inner">Yes — it's a good idea. Bring your charger too.</div></div>
+          <div class="faq-answer" id="faq-answer-1"><div class="faq-answer-inner">Yes — it's a good idea. Bring your charger too.</div></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
+          <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
             Will we need to work?
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <div class="faq-answer"><div class="faq-answer-inner">We hope not. PMs have blocked both days. If genuine emergencies come up, we'll handle them together — no one is left alone to deal with it.</div></div>
+          <div class="faq-answer" id="faq-answer-2"><div class="faq-answer-inner">We hope not. PMs have blocked both days. If genuine emergencies come up, we'll handle them together — no one is left alone to deal with it.</div></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
+          <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
             Where can I park?
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <div class="faq-answer"><div class="faq-answer-inner">Plenty of good options nearby. Check the #paw Slack channel for recommendations. Parking is reimbursed — keep your receipts.</div></div>
+          <div class="faq-answer" id="faq-answer-3"><div class="faq-answer-inner">Plenty of good options nearby. Check the #paw Slack channel for recommendations. Parking is reimbursed — keep your receipts.</div></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
+          <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
             Is there anything after dinner on Thursday?
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <div class="faq-answer"><div class="faq-answer-inner">Nothing official — but nothing stopping you either. Informal plans can be made on the fly. Nothing mandatory after dinner.</div></div>
+          <div class="faq-answer" id="faq-answer-4"><div class="faq-answer-inner">Nothing official — but nothing stopping you either. Informal plans can be made on the fly. Nothing mandatory after dinner.</div></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
+          <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
             Can I leave stuff at the Plank office?
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <div class="faq-answer"><div class="faq-answer-inner">Yes — we'll do our best to make sure there's access throughout both days.</div></div>
+          <div class="faq-answer" id="faq-answer-5"><div class="faq-answer-inner">Yes — we'll do our best to make sure there's access throughout both days.</div></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
+          <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
             Can I do yoga if I've never tried it before?
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <div class="faq-answer"><div class="faq-answer-inner">Absolutely. Jeanne tailors the session to any level — it's explicitly not intense. Think gentle movement and mindfulness, not a workout class.</div></div>
+          <div class="faq-answer" id="faq-answer-6"><div class="faq-answer-inner">Absolutely. Jeanne tailors the session to any level — it's explicitly not intense. Think gentle movement and mindfulness, not a workout class.</div></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
+          <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
             No Plankathon this year?
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <div class="faq-answer"><div class="faq-answer-inner">Correct — we're keeping PAW '26 lighter, more fun, and more social. The Swag Station is the creative outlet this year.</div></div>
+          <div class="faq-answer" id="faq-answer-7"><div class="faq-answer-inner">Correct — we're keeping PAW '26 lighter, more fun, and more social. The Swag Station is the creative outlet this year.</div></div>
         </div>
 
         <div class="faq-item">
-          <button class="faq-question" aria-expanded="false">
+          <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
             Do I get to keep my pottery?
             <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/>
             </svg>
           </button>
-          <div class="faq-answer"><div class="faq-answer-inner">Yes — handbuilt pieces are yours. They'll be fired and finished after the event. Steve will pick them up and ship to anyone not based in Montréal.</div></div>
+          <div class="faq-answer" id="faq-answer-8"><div class="faq-answer-inner">Yes — handbuilt pieces are yours. They'll be fired and finished after the event. Steve will pick them up and ship to anyone not based in Montréal.</div></div>
         </div>
 
       </div>
@@ -532,7 +534,7 @@
         <p>Montréal, QC H3B 1A2</p>
       </div>
     </div>
-    <p class="footer-bottom">See you in Montréal ✦ Questions? Hit up <a href="https://plank.slack.com/team/U025BMZ4M" target="_blank" rel="noopener">Steve</a> or <a href="https://plank.slack.com/archives/C02FXK6CRLZ" target="_blank" rel="noopener">#paw-event-2026</a> on Slack.</p>
+    <p class="footer-bottom">See you in Montréal ✦ Questions? Hit up <a href="https://plank.slack.com/team/U025BMZ4M" target="_blank" rel="noopener" aria-label="Message Steve on Slack (opens in new tab)">Steve</a> or <a href="https://plank.slack.com/archives/C02FXK6CRLZ" target="_blank" rel="noopener" aria-label="#paw-event-2026 channel on Slack (opens in new tab)">#paw-event-2026</a> on Slack.</p>
   </div>
 </footer>
 
