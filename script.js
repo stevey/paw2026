@@ -184,3 +184,130 @@ if (typeof L !== 'undefined') {
 } else {
   window.addEventListener('load', initMap);
 }
+
+// ---- Schedule PDF download ----
+async function downloadDayPDF(dayColId, filename) {
+  const el = document.getElementById(dayColId);
+  if (!el) return;
+
+  const btn = el.querySelector('.day-pdf-btn');
+  const origText = btn.textContent;
+  btn.textContent = 'Generating…';
+  btn.disabled = true;
+
+  try {
+    const canvas = await html2canvas(el, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#ffffff',
+      onclone: (doc) => {
+        doc.documentElement.classList.remove('dark');
+        doc.getElementById(dayColId).querySelector('.day-pdf-btn').style.display = 'none';
+        // Strip all background colours so the PDF renders on plain white
+        const s = doc.createElement('style');
+        s.textContent = `
+          *, *::before, *::after {
+            background-color: transparent !important;
+            background-image: none !important;
+            box-shadow: none !important;
+          }
+        `;
+        doc.head.appendChild(s);
+      },
+    });
+
+    const { jsPDF } = window.jspdf;
+    const pdf   = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+    const maxW  = pageW * 0.8;          // 80% width → 10% margin each side
+    const maxH  = pageH * 0.92;         // small top/bottom breathing room
+
+    // Scale canvas to fit within the content area, centred
+    const imgRatio = canvas.width / canvas.height;
+    let drawW = maxW;
+    let drawH = drawW / imgRatio;
+    if (drawH > maxH) { drawH = maxH; drawW = drawH * imgRatio; }
+    const x = (pageW - drawW) / 2;
+    const y = (pageH - drawH) / 2;
+
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', x, y, drawW, drawH);
+    pdf.save(filename);
+  } finally {
+    btn.textContent = origText;
+    btn.disabled = false;
+  }
+}
+
+document.querySelectorAll('.day-pdf-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const day = btn.dataset.day;
+    downloadDayPDF(
+      `day-${day}`,
+      day === 'thu' ? 'PAW26-Thursday.pdf' : 'PAW26-Friday.pdf'
+    );
+  });
+});
+
+// ---- Hero artwork download ----
+const heroDownloadBtn = document.querySelector('.hero-download');
+if (heroDownloadBtn) {
+  heroDownloadBtn.addEventListener('click', async () => {
+    const hero = document.querySelector('.hero');
+    const rect = hero.getBoundingClientRect();
+    const dpr  = window.devicePixelRatio || 1;
+    const OUT_W = Math.round(rect.width  * dpr);
+    const OUT_H = Math.round(rect.height * dpr);
+    const sx = dpr, sy = dpr;
+
+    const canvas = document.createElement('canvas');
+    canvas.width  = OUT_W;
+    canvas.height = OUT_H;
+    const ctx = canvas.getContext('2d');
+
+    // Background
+    ctx.fillStyle = html.classList.contains('dark') ? '#112621' : '#f0ede8';
+    ctx.fillRect(0, 0, OUT_W, OUT_H);
+
+    // Draw each logo in DOM order (oldest → newest)
+    for (const el of hero.querySelectorAll('.paw-click')) {
+      const cs      = getComputedStyle(el);
+      const opacity = parseFloat(cs.opacity);
+      if (opacity <= 0) continue;
+
+      const blurMatch = cs.filter.match(/blur\(([\d.]+)px\)/);
+      const blurPx    = blurMatch ? parseFloat(blurMatch[1]) * sx : 0;
+
+      const left   = parseFloat(el.style.left)   * sx;
+      const top    = parseFloat(el.style.top)     * sy;
+      const width  = parseFloat(el.style.width)   * sx;
+      const height = parseFloat(el.style.height)  * sy;
+      const rotRad = parseFloat(el.style.getPropertyValue('--rot') || 0) * Math.PI / 180;
+
+      const svgStr = new XMLSerializer().serializeToString(el.querySelector('svg'));
+      const url    = URL.createObjectURL(new Blob([svgStr], { type: 'image/svg+xml' }));
+
+      await new Promise(resolve => {
+        const img  = new Image();
+        img.onload = () => {
+          ctx.save();
+          ctx.globalAlpha = opacity;
+          if (blurPx > 0) ctx.filter = `blur(${blurPx.toFixed(1)}px)`;
+          ctx.translate(left, top);
+          ctx.rotate(rotRad);
+          ctx.drawImage(img, -width / 2, -height / 2, width, height);
+          ctx.restore();
+          URL.revokeObjectURL(url);
+          resolve();
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); resolve(); };
+        img.src = url;
+      });
+    }
+
+    const a = document.createElement('a');
+    a.download = `paw26-artwork-${html.classList.contains('dark') ? 'dark' : 'light'}.png`;
+    a.href     = canvas.toDataURL('image/png');
+    a.click();
+  });
+}

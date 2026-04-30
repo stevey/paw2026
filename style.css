@@ -253,6 +253,19 @@ html.dark .site-nav.scrolled {
   font-weight: 300; max-width: 500px; line-height: 1.65;
 }
 
+.hero-download-wrap {
+  display: flex; justify-content: center;
+  padding: var(--sp-3) 0;
+}
+.hero-download {
+  background: none; border: 1px solid var(--c-border); border-radius: var(--r-sm);
+  color: var(--c-gold);
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  padding: 0.3rem 0.65rem; cursor: pointer;
+  opacity: 0.6; transition: opacity var(--t);
+}
+.hero-download:hover { opacity: 1; }
+
 .hero-scroll {
   position: absolute; bottom: var(--sp-10); left: 50%;
   transform: translateX(-50%);
@@ -294,9 +307,23 @@ html.dark .site-nav.scrolled {
 .day-col { display: flex; flex-direction: column; gap: var(--sp-5); }
 
 .day-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
   padding-bottom: var(--sp-4);
   border-bottom: 1px solid rgba(232,228,220,0.12);
 }
+.day-pdf-btn {
+  flex-shrink: 0;
+  align-self: center;
+  background: var(--c-coral);
+  border: none; border-radius: var(--r-sm);
+  color: var(--c-primary);
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.45rem 0.9rem; cursor: pointer;
+  transition: opacity var(--t), transform var(--t);
+}
+.day-pdf-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+.day-pdf-btn:active { transform: translateY(0); }
 .day-header h3 {
   font-family: var(--f-display);
   font-size: 1.75rem;
@@ -550,7 +577,7 @@ html.dark .leaflet-popup-tip { background: #1c1c1a; }
 @keyframes paw-click-fade {
   0%   { opacity: 0;   filter: blur(0px);  transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(0.3); }
   14%  { opacity: 0.7; filter: blur(0px);  transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1);   }
-  100% { opacity: 0.1; filter: blur(18px); transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1);   }
+  100% { opacity: 0.2; filter: blur(6px);  transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1);   }
 }
 
 /* =====================================================

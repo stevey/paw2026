@@ -18,6 +18,8 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 - **Sticky nav** — backdrop blur + border on scroll; hamburger menu on mobile
 - **Footer Slack links** — direct deep-links to Steve's profile and `#paw-event-2026` channel
 - **Vibe bar** — sticky top banner crediting the project; styled in Plank Forest Green with Sage Green text
+- **Hero artwork export** — "↓ save artwork" button below the hero captures the current logo collage at native resolution (×devicePixelRatio) as a PNG, correctly reflecting light or dark mode
+- **Schedule PDF export** — coral "↓ Download PDF" button beside each day heading generates a single-page A4 PDF of that day's schedule; always renders in light mode with a clean white background and 10% side margins regardless of current theme
 
 ---
 
@@ -33,6 +35,7 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 | Map tiles | [CartoDB](https://carto.com/attributions) light (`light_all`) and dark (`dark_all`) via OpenStreetMap data |
 | Geocoding | [Nominatim / OpenStreetMap](https://nominatim.openstreetmap.org/) used to derive accurate venue coordinates |
 | Scroll animations | CSS `animation-timeline: view()` (Scroll-Driven Animations API, Chrome 115+, Safari 18+, Firefox 132+) behind `@supports` |
+| PDF export | [jsPDF v2.5.1](https://github.com/parallax/jsPDF) + [html2canvas v1.4.1](https://html2canvas.hertzen.com/) via unpkg CDN |
 | Preview server | `python3 -m http.server 8765` |
 
 ---

@@ -66,6 +66,9 @@
       </svg>
     </div>
   </header>
+  <div class="hero-download-wrap">
+    <button class="hero-download" aria-label="Download hero artwork as PNG">↓ save artwork</button>
+  </div>
 
   <!-- ===== SCHEDULE ===== -->
   <section id="schedule" class="schedule-section" aria-labelledby="schedule-heading">
@@ -78,11 +81,14 @@
       <div class="days-grid">
 
       <!-- Thursday -->
-      <div class="day-col">
+      <div class="day-col" id="day-thu">
         <div class="day-header">
-          <p class="eyebrow">Day 01</p>
-          <h3>Thursday</h3>
-          <p class="day-date">May 28, 2026</p>
+          <div class="day-header-info">
+            <p class="eyebrow">Day 01</p>
+            <h3>Thursday</h3>
+            <p class="day-date">May 28, 2026</p>
+          </div>
+          <button class="day-pdf-btn" data-day="thu" aria-label="Download Thursday schedule as PDF">↓ Download PDF</button>
         </div>
         <div class="schedule-grid">
 
@@ -192,11 +198,14 @@
       </div>
 
       <!-- Friday -->
-      <div class="day-col">
+      <div class="day-col" id="day-fri">
         <div class="day-header">
-          <p class="eyebrow">Day 02</p>
-          <h3>Friday</h3>
-          <p class="day-date">May 29, 2026</p>
+          <div class="day-header-info">
+            <p class="eyebrow">Day 02</p>
+            <h3>Friday</h3>
+            <p class="day-date">May 29, 2026</p>
+          </div>
+          <button class="day-pdf-btn" data-day="fri" aria-label="Download Friday schedule as PDF">↓ Download PDF</button>
         </div>
         <div class="schedule-grid">
 
@@ -527,6 +536,8 @@
 </footer>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://unpkg.com/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 <script src="script.js"></script>
 
 </body>
