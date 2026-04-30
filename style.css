@@ -254,17 +254,33 @@ html.dark .site-nav.scrolled {
 }
 
 .hero-download-wrap {
-  display: flex; justify-content: center;
+  display: flex; justify-content: center; gap: var(--sp-3);
   padding: var(--sp-3) 0;
 }
-.hero-download {
+.hero-clear {
+  display: none;
   background: none; border: 1px solid var(--c-border); border-radius: var(--r-sm);
   color: var(--c-gold);
   font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
-  padding: 0.3rem 0.65rem; cursor: pointer;
-  opacity: 0.6; transition: opacity var(--t);
+  padding: 0.3rem 0.65rem;
+  cursor: pointer; opacity: 0.65;
+  transition: opacity var(--t);
 }
-.hero-download:hover { opacity: 1; }
+.hero-clear.visible { display: block; }
+.hero-clear:hover { opacity: 1; }
+.hero-download {
+  background: none; border: 1px solid transparent; border-radius: var(--r-sm);
+  color: var(--c-gold);
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  padding: 0.3rem 0.65rem;
+  opacity: 0.5; cursor: default; font-style: italic;
+  transition: opacity var(--t), border-color var(--t), font-style var(--t);
+}
+.hero-download:not(:disabled) {
+  border-color: var(--c-border);
+  cursor: pointer; font-style: normal; opacity: 0.65;
+}
+.hero-download:not(:disabled):hover { opacity: 1; }
 
 .hero-scroll {
   position: absolute; bottom: var(--sp-10); left: 50%;

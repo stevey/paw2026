@@ -53,6 +53,14 @@ checkScroll();
   const hero = document.querySelector('.hero');
   if (!hero) return;
 
+  // Start both buttons inactive; activate on first canvas click
+  const dlBtn    = document.querySelector('.hero-download');
+  const clearBtn = document.querySelector('.hero-clear');
+  if (dlBtn) {
+    dlBtn.disabled = true;
+    dlBtn.textContent = '↑ click the canvas above to paint';
+  }
+
   const PAW_COLORS = [
     '#FF9375', // Peach Coral
     '#528CFF', // Cornflower Blue
@@ -98,6 +106,13 @@ checkScroll();
     hero.appendChild(paw);
     queue.push(paw);
 
+    // Unlock both buttons after first paint
+    if (dlBtn && dlBtn.disabled) {
+      dlBtn.disabled = false;
+      dlBtn.textContent = '↓ save artwork';
+    }
+    if (clearBtn) clearBtn.classList.add('visible');
+
     // Evict oldest when over cap — fade it out first
     if (queue.length > MAX_PAWS) {
       const oldest = queue.shift();
@@ -107,6 +122,15 @@ checkScroll();
     }
   });
 }());
+
+// ---- Clear hero artwork ----
+document.querySelector('.hero-clear')?.addEventListener('click', () => {
+  document.querySelectorAll('.hero .paw-click').forEach(el => el.remove());
+  const dl  = document.querySelector('.hero-download');
+  const clr = document.querySelector('.hero-clear');
+  if (dl)  { dl.disabled = true;  dl.textContent = '↑ click the canvas above to paint'; }
+  if (clr) { clr.classList.remove('visible'); }
+});
 
 // ---- FAQ accordion ----
 document.querySelectorAll('.faq-question').forEach(btn => {
@@ -276,26 +300,65 @@ if (heroDownloadBtn) {
       if (opacity <= 0) continue;
 
       const blurMatch = cs.filter.match(/blur\(([\d.]+)px\)/);
-      const blurPx    = blurMatch ? parseFloat(blurMatch[1]) * sx : 0;
+      const blurCSS   = blurMatch ? parseFloat(blurMatch[1]) : 0; // CSS px
 
-      const left   = parseFloat(el.style.left)   * sx;
-      const top    = parseFloat(el.style.top)     * sy;
-      const width  = parseFloat(el.style.width)   * sx;
-      const height = parseFloat(el.style.height)  * sy;
-      const rotRad = parseFloat(el.style.getPropertyValue('--rot') || 0) * Math.PI / 180;
+      const left      = parseFloat(el.style.left)   * sx;
+      const top       = parseFloat(el.style.top)     * sy;
+      const width     = parseFloat(el.style.width)   * sx;
+      const height    = parseFloat(el.style.height)  * sy;
+      const rotRad    = parseFloat(el.style.getPropertyValue('--rot') || 0) * Math.PI / 180;
+      const cssWidth  = parseFloat(el.style.width);  // un-scaled, for stdDeviation calc
 
-      const svgStr = new XMLSerializer().serializeToString(el.querySelector('svg'));
-      const url    = URL.createObjectURL(new Blob([svgStr], { type: 'image/svg+xml' }));
+      // Clone the SVG and expand its viewBox symmetrically so the Gaussian
+      // falloff has room to breathe before it hits the viewport boundary.
+      // Equal padding on all sides keeps the content centre unchanged, so the
+      // existing centred drawImage call still places it correctly.
+      const VW = 1110, VH = 1660;
+      const PAD = 350; // SVG user-space units — safely > 3σ for any logo size
+      const pvW = VW + 2 * PAD;  // 1810
+      const pvH = VH + 2 * PAD;  // 2360
+      const svgEl = el.querySelector('svg').cloneNode(true);
+      svgEl.setAttribute('viewBox', `-${PAD} -${PAD} ${pvW} ${pvH}`);
+      svgEl.setAttribute('overflow', 'visible');
+
+      // Canvas draw size for the padded SVG (content stays same visual scale)
+      const pWidth  = width  * (pvW / VW);
+      const pHeight = height * (pvH / VH);
+
+      if (blurCSS > 0) {
+        const ns     = 'http://www.w3.org/2000/svg';
+        const stdDev = (blurCSS * VW / cssWidth).toFixed(1);
+        const defs   = document.createElementNS(ns, 'defs');
+        const filt   = document.createElementNS(ns, 'filter');
+        filt.setAttribute('id', 'xb');
+        filt.setAttribute('filterUnits', 'userSpaceOnUse');
+        filt.setAttribute('x',      `-${PAD}`);
+        filt.setAttribute('y',      `-${PAD}`);
+        filt.setAttribute('width',  String(pvW));
+        filt.setAttribute('height', String(pvH));
+        const feBlur = document.createElementNS(ns, 'feGaussianBlur');
+        feBlur.setAttribute('stdDeviation', stdDev);
+        filt.appendChild(feBlur);
+        defs.appendChild(filt);
+        svgEl.insertBefore(defs, svgEl.firstChild);
+        const g = document.createElementNS(ns, 'g');
+        g.setAttribute('filter', 'url(#xb)');
+        [...svgEl.children].filter(c => c !== defs).forEach(c => g.appendChild(c));
+        svgEl.appendChild(g);
+      }
+
+      const url = URL.createObjectURL(
+        new Blob([new XMLSerializer().serializeToString(svgEl)], { type: 'image/svg+xml' })
+      );
 
       await new Promise(resolve => {
         const img  = new Image();
         img.onload = () => {
           ctx.save();
           ctx.globalAlpha = opacity;
-          if (blurPx > 0) ctx.filter = `blur(${blurPx.toFixed(1)}px)`;
           ctx.translate(left, top);
           ctx.rotate(rotRad);
-          ctx.drawImage(img, -width / 2, -height / 2, width, height);
+          ctx.drawImage(img, -pWidth / 2, -pHeight / 2, pWidth, pHeight);
           ctx.restore();
           URL.revokeObjectURL(url);
           resolve();
