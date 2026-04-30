@@ -13,7 +13,6 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 - **Location cards** — address, event note, and direct Google Maps links for each venue
 - **FAQ accordion** — single-open accordion with animated expand/collapse and keyboard support
 - **Dark / light mode** — full-page theme toggle, respects `prefers-color-scheme` on first load, persisted in `localStorage`
-- **Scroll-driven animations** — section content fades up on scroll using the native CSS Scroll-Driven Animations API (no JavaScript)
 - **Responsive layout** — single-column mobile (< 640 px), two-column schedule collapses at 900 px, full-screen mobile nav overlay
 - **Sticky nav** — backdrop blur + border on scroll; hamburger menu on mobile
 - **Footer Slack links** — direct deep-links to Steve's profile and `#paw-event-2026` channel
@@ -35,7 +34,6 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 | Map | [Leaflet.js v1.9.4](https://leafletjs.com/) via unpkg CDN |
 | Map tiles | [CartoDB](https://carto.com/attributions) light (`light_all`) and dark (`dark_all`) via OpenStreetMap data |
 | Geocoding | [Nominatim / OpenStreetMap](https://nominatim.openstreetmap.org/) used to derive accurate venue coordinates |
-| Scroll animations | CSS `animation-timeline: view()` (Scroll-Driven Animations API, Chrome 115+, Safari 18+, Firefox 132+) behind `@supports` |
 | PDF export | [jsPDF v2.5.1](https://github.com/parallax/jsPDF) + [html2canvas v1.4.1](https://html2canvas.hertzen.com/) via unpkg CDN |
 | Preview server | `python3 -m http.server 8765` |
 

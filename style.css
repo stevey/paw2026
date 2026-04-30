@@ -539,21 +539,6 @@ html.dark .leaflet-popup-tip { background: #1c1c1a; }
 }
 
 /* === SCROLL ANIMATIONS (Josh Comeau approach) === */
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@supports (animation-timeline: view()) {
-  .animate {
-    animation: fade-up linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 28%;
-  }
-  .animate-d1 { animation-delay: 60ms; }
-  .animate-d2 { animation-delay: 120ms; }
-  .animate-d3 { animation-delay: 180ms; }
-}
 
 /* === RESPONSIVE === */
 @media (max-width: 640px) {
