@@ -6,12 +6,7 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 
 ## About this project
 
-This is a vibe coded site — built by Steve Bissonnette with Claude Code doing the heavy lifting. Steve learned a surprising amount along the way, including:
-
-- **SVG internals** — diving into how the Plank monogram SVG is structured, how `viewBox`, `fill`, and `<filter>` / `<feGaussianBlur>` work, and how to manipulate SVG nodes in JavaScript for the hero artwork export
-- **Leaflet.js & map tiles** — setting up an interactive map, swapping CartoDB light/dark tile layers on theme change, and debugging tile seam artefacts
-- **PDF generation in the browser** — using `html2canvas` + `jsPDF` to capture a DOM element as a single-page PDF, and the nuances of forcing light-mode rendering via `onclone`
-- **General GitHub skills** — branching, committing with good messages, and pushing a static site through a real workflow
+This is a vibe coded site — built by Steve Bissonnette with Claude Code doing the heavy lifting. Steve learned a bit along the way, including a good look at how SVGs work (particularly the Plank monogram — `viewBox`, `fill`, `<filter>`, and `<feGaussianBlur>`), some Leaflet.js and map tiles, PDF download considerations, and general GitHub skills.
 
 ---
 
