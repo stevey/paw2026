@@ -197,10 +197,13 @@ function initMap() {
 function swapMapTiles() {
   if (!mapInstance) return;
   if (html.classList.contains('dark')) {
-    if (mapInstance.hasLayer(lightTiles)) { mapInstance.removeLayer(lightTiles); darkTiles.addTo(mapInstance); }
+    if (!mapInstance.hasLayer(darkTiles))  darkTiles.addTo(mapInstance);
+    if (mapInstance.hasLayer(lightTiles))  mapInstance.removeLayer(lightTiles);
   } else {
-    if (mapInstance.hasLayer(darkTiles)) { mapInstance.removeLayer(darkTiles); lightTiles.addTo(mapInstance); }
+    if (!mapInstance.hasLayer(lightTiles)) lightTiles.addTo(mapInstance);
+    if (mapInstance.hasLayer(darkTiles))   mapInstance.removeLayer(darkTiles);
   }
+  mapInstance.invalidateSize();
 }
 
 if (typeof L !== 'undefined') {
