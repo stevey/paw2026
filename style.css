@@ -292,6 +292,16 @@ html.dark .site-nav.scrolled {
 }
 /* [hidden] keeps display:none; JS removes the attribute to show the button */
 .hero-clear:hover { opacity: 1; }
+.hero-mode-toggle {
+  background: none; border: 1px solid var(--c-border); border-radius: var(--r-sm);
+  color: var(--c-gold);
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.08em;
+  padding: 0.3rem 0.65rem;
+  cursor: pointer; opacity: 0.65;
+  transition: opacity var(--t), border-color var(--t);
+}
+.hero-mode-toggle:hover { opacity: 1; }
+.hero-mode-toggle[aria-pressed="true"] { border-color: var(--c-gold); opacity: 1; }
 .hero-download {
   background: none; border: 1px solid transparent; border-radius: var(--r-sm);
   color: var(--c-gold);
@@ -605,6 +615,20 @@ html.dark .leaflet-popup-tip { background: #1c1c1a; }
   100% { opacity: 0.2; filter: blur(6px);  transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1);   }
 }
 
+.shape-click {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  transform-origin: center center;
+  animation: paw-click-fade 2.4s ease-out forwards;
+}
+
+.shape-click svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 /* =====================================================
    LIGHT / DARK MODE OVERRIDES
    ===================================================== */
@@ -695,5 +719,6 @@ html.dark .hero-tagline { color: rgba(252,251,250,0.75); }
   .hero-scroll { animation: none; }
   .hero-inner  { animation: none; }
   .paw-click   { animation: none; opacity: 0.5; }
+  .shape-click { animation: none; opacity: 0.5; }
   .faq-answer  { transition: none; }
 }

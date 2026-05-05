@@ -6,13 +6,16 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for interna
 
 ## About this project
 
-This is a vibe coded site — built by Steve Bissonnette with Claude Code doing the heavy lifting. Steve learned a bit along the way, including a good look at how SVGs work (particularly the Plank monogram — `viewBox`, `fill`, `<filter>`, and `<feGaussianBlur>`), some Leaflet.js and map tiles, PDF download considerations, and general GitHub skills.
+This is a vibe coded site — built by Steve Bissonnette with Claude Code doing the heavy lifting. Steve learned a bit along the way, including a good look at how SVGs work (particularly the Plank monogram — `viewBox`, `fill`, `<filter>`, and `<feGaussianBlur>`; and later per-shape bounding-box computation to center organic path art in its own `viewBox`), some Leaflet.js and map tiles, PDF download considerations, and general GitHub skills.
 
 ---
 
 ## Features
 
-- **Hero with logo-click interaction** — click anywhere on the hero to spawn a randomly sized, rotated, and coloured Plank monogram SVG that fades to 10% opacity with a soft CSS blur dissolve; up to 50 persist at once, colour palette sourced from official Plank brand guidelines
+- **Hero canvas with two artwork modes** — click anywhere on the hero to spawn randomly sized, rotated, and coloured shapes that fade to 20% opacity with a soft CSS blur dissolve; up to 50 persist at once, oldest evicted first; colour palette sourced from official Plank brand guidelines
+  - **✳︎ logo mode** (default) — spawns the Plank monogram SVG; sizes from 100 px up to viewport max
+  - **✳︎ shape mode** — randomly picks one of 11 hand-drawn organic SVG shapes from `/svgs/`; sizes from 200 px up to viewport max; each shape uses a computed tight `viewBox` centred on its path bounds so the animation always originates from the visual centre
+  - **Mode toggle** — small `✳︎ logo` / `✳︎ shape` button to the left of the clear button; switches mode without clearing existing canvas art
 - **Two-column schedule** — Thursday and Friday side-by-side with time labels, event descriptions, and colour-coded tag pills (Food, Social, Optional, Activity, All Hands, Ongoing)
 - **Activity highlights grid** — six feature cards covering Swag, Yoga, Walking Tour, Pottery, Volunteering, and Team Photos
 - **Interactive Leaflet map** — four location markers with popups; tiles swap between light and dark CartoDB styles to match the active theme
@@ -23,8 +26,8 @@ This is a vibe coded site — built by Steve Bissonnette with Claude Code doing 
 - **Sticky nav** — backdrop blur + border on scroll; hamburger menu on mobile
 - **Footer Slack links** — direct deep-links to Steve's profile and `#paw-event-2026` channel
 - **Vibe bar** — sticky top banner crediting the project; styled in Plank Forest Green with Sage Green text
-- **Hero artwork export** — "↓ save artwork" button below the hero captures the current logo collage at native resolution (×devicePixelRatio) as a PNG, correctly reflecting light or dark mode; blur is baked into each SVG via `<feGaussianBlur>` for full cross-browser fidelity
-- **Hero canvas controls** — "✕ clear" button appears beside save after the first click and resets the canvas; both buttons start inactive with a hint label and unlock progressively as artwork is created
+- **Hero artwork export** — "↓ save artwork" button captures the full canvas (both logo and shape mode elements) at native resolution (×devicePixelRatio) as a PNG; blur baked in via `<feGaussianBlur>` per element; `VW`/`VH`/`PAD` computed from each element's actual `viewBox` so blur padding scales correctly for any shape size
+- **Hero canvas controls** — "✕ clear" resets both logo and shape elements; all controls start inactive with a hint label and unlock progressively as artwork is created
 - **Schedule PDF export** — coral "↓ Download PDF" button beside each day heading generates a single-page A4 PDF of that day's schedule; always renders in light mode with a clean white background and 10% side margins regardless of current theme
 
 ---
