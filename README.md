@@ -6,7 +6,7 @@ Static event site for PAW '26, May 28–29, 2026 in Montréal. Public — but bu
 
 ## About this project
 
-This is a vibe coded site — built by Steve Bissonnette with Claude Code doing the heavy lifting. Steve learned a bit along the way, including a good look at how SVGs work (particularly the Plank monogram — `viewBox`, `fill`, `<filter>`, and `<feGaussianBlur>`; and later per-shape bounding-box computation to center organic path art in its own `viewBox`), some Leaflet.js and map tiles, PDF download considerations, and general GitHub skills.
+This is a vibe coded site — built by Steve Bissonnette with Claude Code doing the heavy lifting. Steve learned a bit along the way, including a good look at how SVGs work, some Leaflet.js and map tiles, PDF download considerations, and general GitHub skills.
 
 ---
 
