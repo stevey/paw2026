@@ -1,6 +1,6 @@
 # PAW '26 — Plank Annual Workgathering
 
-Static event site for PAW '26, May 28–29, 2026 in Montréal. Built for internal Plank use.
+Static event site for PAW '26, May 28–29, 2026 in Montréal. Public — but built for internal Plank use.
 
 ---
 
